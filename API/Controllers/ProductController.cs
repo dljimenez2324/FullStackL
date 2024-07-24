@@ -23,6 +23,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> Products()
         {
+            await Task.Delay(2000);
             return Ok(await _context.Products.AsNoTracking().ToListAsync());
         }
 
