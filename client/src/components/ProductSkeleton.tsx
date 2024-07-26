@@ -18,7 +18,8 @@ import {
   Text,
   Badge,
   Skeleton,
-  SkeletonCircle
+  SkeletonCircle,
+  useToast
 } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { AddIcon, DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
@@ -126,25 +127,12 @@ const ProductSkeleton = () => {
                 ))
 
               }
-            {/* <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr> */}
+           
           </Tbody>
-          {/* <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot> */}
+          
         </Table>
       </TableContainer>
-      {/* {data.length == 0 && <Center><Heading p={5} fontSize={24} >No Data</Heading></Center>} */}
+     
       </Box>
     </>
   );

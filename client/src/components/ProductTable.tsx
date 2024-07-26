@@ -18,6 +18,15 @@ import {
   Text,
   Badge,
   useDisclosure,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  PopoverFooter,
+  useToast,
 } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { AddIcon, DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
@@ -28,7 +37,7 @@ import ProductSkeleton from "./ProductSkeleton";
 import ProductForm from "./ProductForm";
 
 // lets get our interface
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -41,9 +50,13 @@ const ProductTable = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // usestates to hold our data / states
+  const [currentData, setCurrentData] = useState<Product>({} as Product);
   const [data, setData] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
+
+
+  const toast = useToast();
 
   // lets create the fetching data function
   const fetchData = () => {
@@ -66,7 +79,47 @@ const ProductTable = () => {
     fetchData();
   }, []);
 
+  //function for the edit icon
+  const getProduct = (id: number) => {
+    axios
+      .get(BASE_URL + "Product/" + id)
+      .then((res) => {
+        setCurrentData(res.data);
+        onOpen();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // helper function for the delete icon
+  const handleDelete = (id:number) => {
+      axios
+          .delete(BASE_URL + "Product/" + id)
+          .then(() => {
+            toast({
+              title: "Product Deleted.",
+              description: "Product deleted successfully.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            });
+            // refreshes the screen
+            fetchData();
+          })
+          .catch(error => {
+              console.log(error);
+          })
+
+  }
+
   if (isLoading) return <ProductSkeleton />;
+
+  //
+  const handleAdd = () => {
+    onOpen();
+    setCurrentData({} as Product);
+  };
 
   return (
     <>
@@ -74,7 +127,11 @@ const ProductTable = () => {
       <Box m={32} shadow={"lg"} rounded={"md"}>
         <Flex justifyContent={"space-between"} px={"5"}>
           <Heading fontSize={30}>Product List</Heading>
-          <Button onClick={onOpen} color="teal.300" leftIcon={<AddIcon />}>
+          <Button
+            onClick={() => handleAdd()}
+            color="teal.300"
+            leftIcon={<AddIcon />}
+          >
             Add Product
           </Button>
         </Flex>
@@ -109,8 +166,27 @@ const ProductTable = () => {
                   <Td>{product.price}</Td>
                   <Td>
                     <HStack>
-                      <EditIcon boxSize={23} color={"orange.200"} />
-                      <DeleteIcon boxSize={23} color={"red.400"} />
+                      <EditIcon
+                        boxSize={23}
+                        color={"orange.200"}
+                        onClick={() => getProduct(product.id)}
+                      />
+                      <Popover>
+                        <PopoverTrigger>
+                          <DeleteIcon boxSize={23} color={"red.400"} />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <PopoverArrow />
+                          <PopoverCloseButton />
+                          <PopoverHeader>Confirmation!</PopoverHeader>
+                          <PopoverBody>
+                            Are you sure you want to delete?
+                          </PopoverBody>
+                          <PopoverFooter>
+                            <Button colorScheme="red" variant={"outline"} onClick={() => handleDelete(product.id)}>Delete</Button>
+                          </PopoverFooter>
+                        </PopoverContent>
+                      </Popover>
                       <ViewIcon boxSize={23} color={"green.300"} />
                     </HStack>
                   </Td>
@@ -134,7 +210,14 @@ const ProductTable = () => {
           </Center>
         )}
         {/* When the modal is open */}
-        {isOpen && <ProductForm isOpen={isOpen} onClose={onClose} fetchProduct={fetchData} />}
+        {isOpen && (
+          <ProductForm
+            isOpen={isOpen}
+            onClose={onClose}
+            fetchProduct={fetchData}
+            currentData={currentData}
+          />
+        )}
       </Box>
     </>
   );
