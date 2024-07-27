@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\API.csproj": {}
+    "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\API.csproj": {
+    "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\obj\\",
+        "outputPath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config",

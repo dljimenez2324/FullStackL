@@ -47,7 +47,7 @@ const ProductForm = ({
     isInStore: currentData?.isInStore || false,
   });
 
-  // helper function to save inside the modal  depending on the
+  // helper function to save inside the modal  depending on if we are adding a new product or editing a product
   const onSave = () => {
     if (currentData?.id) {
       editProduct();

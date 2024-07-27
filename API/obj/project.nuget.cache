@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LkioGb4QJkz++uEFMwGI1bzswz8wck035t6T989eFxu3JnDaVNCpIqdTsLu9kXv+KeAaRa2IHRP/b10tYDQkdA==",
+  "dgSpecHash": "pFdfsnowabzDP62V2g2VSgE7L4mIwGoqP1+K4GtzZEIzFEI1VlYXLOvvLuqWixkFvVbu7bU5Gr4ICd9ZmbYxiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Owner\\OneDrive\\CodeStack\\Level_3\\Lessons\\FullStackL\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -1,8 +1,8 @@
 import {
-  Avatar,
+  // Avatar,
   Box,
   Button,
-  Center,
+  // Center,
   Flex,
   Heading,
   HStack,
@@ -11,7 +11,7 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
+  // Tfoot,
   Th,
   Thead,
   Tr,
@@ -19,9 +19,9 @@ import {
   Badge,
   Skeleton,
   SkeletonCircle,
-  useToast
+  // useToast
 } from "@chakra-ui/react";
-import ColorModeSwitch from "./ColorModeSwitch";
+// import ColorModeSwitch from "./ColorModeSwitch";
 import { AddIcon, DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
