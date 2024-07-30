@@ -35,6 +35,7 @@ import axios from "axios";
 import { BASE_URL } from "../constant";
 import ProductSkeleton from "./ProductSkeleton";
 import ProductForm from "./ProductForm";
+import ViewDetails from "./ViewDetails";
 
 // lets get our interface
 export interface Product {
@@ -48,13 +49,14 @@ export interface Product {
 const ProductTable = () => {
   // custom hook so we can use these states
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // different useDisclosure so rename it
+  const { isOpen:viewDialogOpen, onOpen:onViewDialogOpen, onClose:onviewDialogClose } = useDisclosure();
 
   // usestates to hold our data / states
   const [currentData, setCurrentData] = useState<Product>({} as Product);
   const [data, setData] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
-
 
   const toast = useToast();
 
@@ -85,6 +87,7 @@ const ProductTable = () => {
       .get(BASE_URL + "Product/" + id)
       .then((res) => {
         setCurrentData(res.data);
+        
         onOpen();
       })
       .catch((error) => {
@@ -93,25 +96,37 @@ const ProductTable = () => {
   };
 
   // helper function for the delete icon
-  const handleDelete = (id:number) => {
-      axios
-          .delete(BASE_URL + "Product/" + id)
-          .then(() => {
-            toast({
-              title: "Product Deleted.",
-              description: "Product deleted successfully.",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            });
-            // refreshes the screen
-            fetchData();
-          })
-          .catch(error => {
-              console.log(error);
-          })
+  const handleDelete = (id: number) => {
+    axios
+      .delete(BASE_URL + "Product/" + id)
+      .then(() => {
+        toast({
+          title: "Product Deleted.",
+          description: "Product deleted successfully.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        // refreshes the screen
+        fetchData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  }
+  // handleView function
+  const handleViewDetail = (id: number) => {
+    axios
+      .get<Product>(BASE_URL + "Product/" + id)
+      .then((res) => {
+        setCurrentData(res.data);
+        onViewDialogOpen();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   if (isLoading) return <ProductSkeleton />;
 
@@ -183,11 +198,21 @@ const ProductTable = () => {
                             Are you sure you want to delete?
                           </PopoverBody>
                           <PopoverFooter>
-                            <Button colorScheme="red" variant={"outline"} onClick={() => handleDelete(product.id)}>Delete</Button>
+                            <Button
+                              colorScheme="red"
+                              variant={"outline"}
+                              onClick={() => handleDelete(product.id)}
+                            >
+                              Delete
+                            </Button>
                           </PopoverFooter>
                         </PopoverContent>
                       </Popover>
-                      <ViewIcon boxSize={23} color={"green.300"} />
+                      <ViewIcon
+                        onClick={() => handleViewDetail(product.id)}
+                        boxSize={23}
+                        color={"green.300"}
+                      />
                     </HStack>
                   </Td>
                 </Tr>
@@ -218,6 +243,9 @@ const ProductTable = () => {
             currentData={currentData}
           />
         )}
+
+        {/* view our details here */}
+        {viewDialogOpen && <ViewDetails isOpen={viewDialogOpen} onClose={onviewDialogClose} currentData={currentData} />}
       </Box>
     </>
   );
